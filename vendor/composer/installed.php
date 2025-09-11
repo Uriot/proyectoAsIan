@@ -3,13 +3,22 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'f4b3608097024ccf588c85e5b4846aa7ceee372f',
+        'reference' => 'bfe99aff429bdc2896528ab519b2c4a3c73b1638',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
         'dev' => true,
     ),
     'versions' => array(
+        'almasaeed2010/adminlte' => array(
+            'pretty_version' => 'v3.2.0',
+            'version' => '3.2.0.0',
+            'reference' => 'bd4d9c72931f1dd28601b6bfb387554a381ad540',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../../../../webserver/Proyectos/calendario/vendor/almasaeed2010/adminlte',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'bacon/bacon-qr-code' => array(
             'pretty_version' => 'v3.0.1',
             'version' => '3.0.1.0',
@@ -424,7 +433,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'f4b3608097024ccf588c85e5b4846aa7ceee372f',
+            'reference' => 'bfe99aff429bdc2896528ab519b2c4a3c73b1638',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
