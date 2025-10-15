@@ -9,6 +9,9 @@ export default {
         './vendor/laravel/jetstream/**/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
+
+        // 👇 Agrega estas rutas para Flowbite
+        './node_modules/flowbite/**/*.js',
     ],
 
     theme: {
@@ -19,5 +22,9 @@ export default {
         },
     },
 
-    plugins: [forms, typography],
+    plugins: [
+        forms,
+        typography,
+        require('flowbite/plugin'), // 👈 Agrega el plugin de Flowbite
+    ],
 };

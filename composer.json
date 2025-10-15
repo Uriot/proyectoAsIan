@@ -8,6 +8,8 @@
     "require": {
         "php": "^8.2",
         "almasaeed2010/adminlte": "~3.2",
+        "laravel-lang/common": "^6.7",
+        "laravel-lang/lang": "^15.26",
         "laravel/framework": "^12.0",
         "laravel/jetstream": "^5.3",
         "laravel/sanctum": "^4.0",
