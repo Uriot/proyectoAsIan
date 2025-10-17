@@ -12,6 +12,9 @@ class MetodosPagosSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $data = [
+            ['nombre' => 'Tarjeta de Crédito', 'descripcion' => 'Pago mediante tarjeta de crédito.', 'creado_por' => 'ian@mail.com', 'actualizado_por' => null, 'activo' => true],
+
+        ];
     }
 }
