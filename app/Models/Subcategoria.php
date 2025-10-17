@@ -22,4 +22,11 @@ class Subcategoria extends Model
     {
         return $this->belongsTo(Categoria::class);
     }
+
+    public function productos()
+    {
+        return $this->belongsToMany(Producto::class, 'subcategorias_productos')
+            ->withPivot(['activo', 'creado_por', 'actualizado_por'])
+            ->withTimestamps();
+    }
 }
