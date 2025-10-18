@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CarritoController;
+use App\Http\Controllers\ClienteController;
 use App\Models\Producto;
 
 // Página principal (welcome)
@@ -31,8 +32,9 @@ Route::middleware([
     Route::post('/carrito/pagar', [CarritoController::class, 'pagar'])->name('carrito.pagar');
     Route::post('/carrito/eliminar/{nombre}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
 
+    // Rutas Cliente
 
-
+    Route::post('/cliente/createorupdate', [ClienteController::class, 'createOrUpdate'])->name('cliente.createorupdate');
 
     // 🔒 RUTAS DE PERMISOS
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');

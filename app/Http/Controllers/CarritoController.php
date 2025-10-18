@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\MetodoPago;
 use Illuminate\Http\Request;
 
 class CarritoController extends Controller
@@ -10,13 +11,15 @@ class CarritoController extends Controller
     public function index()
     {
         $carrito = session()->get('carrito', []);
+        $user = auth()->user();
+        $metodosPago = MetodoPago::all();
         $total = 0;
 
         foreach ($carrito as $item) {
             $total += $item['precio'] * $item['cantidad'];
         }
-
-        return view('carrito', compact('carrito', 'total'));
+        //dd($user->cliente)   ;
+        return view('carrito', compact('carrito', 'total', 'user', 'metodosPago'));
     }
 
     // Agregar producto al carrito
