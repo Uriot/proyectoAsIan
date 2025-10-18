@@ -6,6 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Producto;
 use App\Models\Subcategoria;
+use App\Models\SubcategoriaProducto;
 
 class ProductoSeeder extends Seeder
 {
@@ -14,7 +15,7 @@ class ProductoSeeder extends Seeder
      */
     public function run(): void
     {
-        $data = [
+        $productos = [
 
             //   AUDIFONOS
             [
@@ -137,7 +138,7 @@ class ProductoSeeder extends Seeder
                 'imagen' => 'https://img.pacifiko.com/PROD/resize/1/500x500/OWFkMTFlMm.jpg',
                 'subcategorias' => ['Nintendo Switch', 'Portables'],
             ],
-            
+
             //  COMPONENTES PC
             [
                 'nombre' => 'Intel Core i7-13700K',
@@ -293,26 +294,28 @@ class ProductoSeeder extends Seeder
             ],
         ];
 
-        // Insertar productos y relacionar subcategorías
-        foreach ($data as $item) {
-            $producto = Producto::create([
-                'nombre' => $item['nombre'],
-                'descripcion' => $item['descripcion'],
-                'precio_venta' => $item['precio_venta'],
-                'activo' => $item['activo'],
-                'imagen' => $item['imagen'],
-            ]);
+        foreach ($productos as $data) {
+            // Extraer subcategorías del producto
+            $subcategorias = $data['subcategorias'];
+            unset($data['subcategorias']);
 
-            // Relacionar subcategorías existentes
-            if (!empty($item['subcategorias'])) {
-                foreach ($item['subcategorias'] as $sub) {
-                    $subcategoria = Subcategoria::where('nombre', $sub)->first();
-                    if ($subcategoria) {
-                        $producto->subcategorias()->attach(
-                            $subcategoria->id,
-                            ['activo' => true, 'creado_por' => 'urizarian@gmail.com', 'actualizado_por' => null]
-                        );
-                    }
+            // Crear producto
+            $producto = Producto::create($data);
+
+            // Vincular con las subcategorías existentes
+            foreach ($subcategorias as $nombreSubcategoria) {
+                $subcategoria = Subcategoria::where('nombre', $nombreSubcategoria)->first();
+
+                if ($subcategoria) {
+                    SubcategoriaProducto::create([
+                        'subcategoria_id' => $subcategoria->id,
+                        'producto_id' => $producto->id,
+                        'activo' => true,
+                        'creado_por' => 'urizarian@gmail.com',
+                        'actualizado_por' => null,
+                    ]);
+                } else {
+                    $this->command->warn("⚠️ Subcategoría '{$nombreSubcategoria}' no encontrada para el producto '{$producto->nombre}'");
                 }
             }
         }

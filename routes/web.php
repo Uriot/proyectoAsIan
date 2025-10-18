@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CarritoController;
+use App\Models\Producto;
 
 // Página principal (welcome)
 Route::get('/', function () {
@@ -18,7 +19,8 @@ Route::middleware([
 
     // Página principal después de iniciar sesión (catálogo)
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        $productos = Producto::paginate(9);
+        return view('dashboard', compact('productos'));
     })->name('dashboard');
 
     // 📦 RUTAS DEL CARRITO
@@ -28,11 +30,11 @@ Route::middleware([
     Route::post('/carrito/pagar', [CarritoController::class, 'pagar'])->name('carrito.pagar');
     Route::post('/carrito/pagar', [CarritoController::class, 'pagar'])->name('carrito.pagar');
     Route::post('/carrito/eliminar/{nombre}', [CarritoController::class, 'eliminar'])->name('carrito.eliminar');
-    
-    
 
 
-    // 🔒 RUTAS DE PERMISOS 
+
+
+    // 🔒 RUTAS DE PERMISOS
     Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
     Route::get('permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
     Route::post('permissions', [PermissionController::class, 'store'])->name('permissions.store');
@@ -40,6 +42,6 @@ Route::middleware([
     Route::get('permissions/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
     Route::put('permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
     Route::delete('permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
-    
+
 
 });

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use ArchTech\Enums\Meta\Meta;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,6 +19,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CategoriasSeeder::class,
             SubcategoriasSeeder::class,
+            ProveedoresSeeder::class,
+            MetodosPagosSeeder::class,
+            ProductoSeeder::class,
+            SucursalesSeeder::class,
+
         ]);
 
         // User::factory()->create([

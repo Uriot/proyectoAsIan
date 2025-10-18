@@ -5,49 +5,15 @@
                 🛒 Catálogo de Productos
             </h2>
             <a href="{{ route('carrito.index') }}" class="text-blue-600 hover:underline">
-                Ver carrito 🛍️
+                Ver carrito 🛍️ ({{ session('carrito') ? count(session('carrito')) : 0 }})
             </a>
         </div>
     </x-slot>
 
     <div class="py-10">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            @if (session('success'))
-                <div class="mb-4 p-3 bg-green-100 text-green-800 rounded-lg shadow-sm">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                @php
-                    $productos = [
-                        [
-                            'nombre' => 'Audifono Inalambrico Para Gamers Marca Logitech Modelo Astro A30 Lightspeed Color Blanco Con Gris Para PlayStation y PC',
-                            'precio' => 1650,
-                            'imagen' => 'https://img.pacifiko.com/PROD/resize/1/500x500/Nzk2MjI5NT.jpg',
-                        ],
-                        [
-                            'nombre' => 'Audifono Inalambrico Para Gamers Marca Logitech Modelo Astro A30 Lightspeed Color Azul con Rojo Para PlayStation y PC',
-                            'precio' => 1536,
-                            'imagen' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0UBwoqMcwOA9ribFFVd_-mebGXECZWdX5Ig&s',
-                        ],
-                        [
-                            'nombre' => 'Audifono Inalambrico Para Gamers Marca Logitech Modelo Astro A30 Lightspeed Color Azul con Rojo Para Xbox y PC',
-                            'precio' => 1833,
-                            'imagen' => 'https://www.shopper.com.gt/wp-content/uploads/2022/12/39-Audifono-G-Astro-A30-LIGHTSPEED-Wireless-Gaming-Headset-Bluetooth-LIGHTSPEED-conector-de-35mm-azul-Logitech.jpg',
-                        ],
-                        [
-                            'nombre' => 'Teclado Mecánico Redragon',
-                            'precio' => 699,
-                            'imagen' => 'https://cdn.pixabay.com/photo/2017/08/10/03/37/keyboard-2618109_1280.jpg',
-                        ],
-                        [
-                            'nombre' => 'SSD Kingston 1TB',
-                            'precio' => 1199,
-                            'imagen' => 'https://cdn.pixabay.com/photo/2017/02/09/22/49/hard-drive-2057560_1280.jpg',
-                        ],
-                    ];
-                @endphp
+
 
                 @foreach ($productos as $producto)
                     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
@@ -57,13 +23,13 @@
                                 {{ $producto['nombre'] }}
                             </h3>
                             <p class="text-gray-600 dark:text-gray-400 mb-4">
-                                Q{{ number_format($producto['precio'], 2) }}
+                                Q{{ number_format($producto['precio_venta'], 2) }}
                             </p>
 
                             <form method="POST" action="{{ route('carrito.agregar') }}">
                                 @csrf
                                 <input type="hidden" name="nombre" value="{{ $producto['nombre'] }}">
-                                <input type="hidden" name="precio" value="{{ $producto['precio'] }}">
+                                <input type="hidden" name="precio" value="{{ $producto['precio_venta'] }}">
                                 <input type="hidden" name="imagen" value="{{ $producto['imagen'] }}">
                                 <button
                                     type="submit"
