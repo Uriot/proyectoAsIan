@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ComprasController;
 use App\Models\Producto;
 
 // Página principal (welcome)
@@ -46,4 +47,10 @@ Route::middleware([
     Route::delete('permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
 
 
+    // Rotas compras
+    Route::get('compras', [ComprasController::class, 'index'])->name('compras.index');
+    Route::get('compras/create', [ComprasController::class, 'create'])->name('compras.create');
+    Route::post('compras/store', [ComprasController::class, 'store'])->name('compras.store');
+    Route::get('compras/{compra}', [ComprasController::class, 'show'])->name('compras.show');
+    Route::get('compras/{compra}/edit', [ComprasController::class, 'edit'])->name('compras.edit');
 });

@@ -28,6 +28,7 @@
 
                             <form method="POST" action="{{ route('carrito.agregar') }}">
                                 @csrf
+                                <input type="hidden" name="id" value="{{ $producto['id'] }}">
                                 <input type="hidden" name="nombre" value="{{ $producto['nombre'] }}">
                                 <input type="hidden" name="precio" value="{{ $producto['precio_venta'] }}">
                                 <input type="hidden" name="imagen" value="{{ $producto['imagen'] }}">
@@ -41,88 +42,9 @@
                     </div>
                 @endforeach
             </div>
-
-            <!-- Carrito -->
-            @if(session('carrito') && count(session('carrito')) > 0)
-                <div class="mt-10 p-6 bg-gray-100 dark:bg-gray-700 rounded-lg">
-                    <h2 class="text-xl font-semibold mb-4">🛒 Tu carrito</h2>
-
-                    <table class="w-full mb-4">
-                        <thead>
-                            <tr>
-                                <th>Producto</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                                <th>Subtotal</th>
-                                <th>Acción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php $total = 0; @endphp
-                            @foreach(session('carrito') as $item)
-                                @php $subtotal = $item['precio'] * $item['cantidad']; $total += $subtotal; @endphp
-                                <tr>
-                                    <td>{{ $item['nombre'] }}</td>
-                                    <td>{{ $item['cantidad'] }}</td>
-                                    <td>Q{{ $item['precio'] }}</td>
-                                    <td>Q{{ $subtotal }}</td>
-                                    <td>
-                                        <form method="POST" action="{{ route('carrito.eliminar', $item['nombre']) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded-lg">
-                                                Eliminar
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-                    <p class="text-right font-bold mb-4">Total: Q{{ $total }}</p>
-
-                    <div class="flex space-x-4">
-                        <form method="POST" action="{{ route('carrito.vaciar') }}">
-                            @csrf
-                            <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg">
-                                Vaciar carrito
-                            </button>
-                        </form>
-
-                        <button
-                            onclick="document.getElementById('metodoPago').classList.toggle('hidden')"
-                            class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg"
-                        >
-                            Pagar Orden
-                        </button>
-                    </div>
-
-                    <!-- Sección de métodos de pago -->
-                    <div id="metodoPago" class="hidden mt-4 p-4 bg-white dark:bg-gray-800 rounded-lg">
-                        <h3 class="font-semibold mb-2">Selecciona método de pago</h3>
-                        <form method="POST" action="{{ route('carrito.pagar') }}">
-                            @csrf
-                            <label class="block mb-2">
-                                <input type="radio" name="metodo_pago" value="tarjeta" required>
-                                Tarjeta de crédito/débito
-                            </label>
-                            <label class="block mb-2">
-                                <input type="radio" name="metodo_pago" value="paypal">
-                                PayPal
-                            </label>
-                            <label class="block mb-2">
-                                <input type="radio" name="metodo_pago" value="efectivo">
-                                Efectivo
-                            </label>
-
-                            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg mt-2">
-                                Confirmar Pago
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            @endif
+            <div class="mt-2">
+                {{ $productos->links() }}
+            </div>
         </div>
     </div>
 </x-app-layout>
