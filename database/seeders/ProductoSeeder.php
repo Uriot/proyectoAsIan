@@ -98,7 +98,7 @@ class ProductoSeeder extends Seeder
             //   TECLADOS
             [
                 'nombre' => 'Logitech G915 TKL',
-                'descripcion' => 'Teclado mecánico inalámbrico RGB con switches GL Tactile.',
+                'descripcion' => 'Teclado mecanico inalambrico RGB con switches GL Tactile.',
                 'precio_venta' => 1800.00,
                 'activo' => true,
                 'imagen' => 'https://img.pacifiko.com/PROD/resize/1/500x500/Yzk3MjFlMW.jpg',
