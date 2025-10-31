@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PedidoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CarritoController;
@@ -46,6 +47,9 @@ Route::middleware([
     Route::put('permissions/{permission}', [PermissionController::class, 'update'])->name('permissions.update');
     Route::delete('permissions/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
 
+    // Rutas de mis Pedidos
+    Route::get('misPedidos', [PedidoController::class, 'misPedidos'])->name('misPedidos.index');
+    Route::get('misPedidos/{pedido}', [PedidoController::class, 'verMiPedido'])->name('misPedidos.view');
 
     // Rotas compras
     Route::get('compras', [ComprasController::class, 'index'])->name('compras.index');
