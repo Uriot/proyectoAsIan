@@ -15,7 +15,7 @@
 
                 <h3 class="text-xl font-semibold mb-4 text-white">Datos del cliente:</h3>
                 <form class="max-w-full mx-auto" method="POST" action="{{ route('cliente.createorupdate') }}">
-                    <div class="grid grid-cols-4 gap-4">
+                    <div class="grid grid-cols-5 gap-4">
                         @csrf
                         <input type="hidden" name="cliente_id" value="{{ auth()->user()->id }}">
                         <div class="mb-5">
@@ -23,7 +23,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
                             <input type="text" id="nombre" name="nombre"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required value="{{ $user->cliente->nombre }}" />
+                                required value="{{ $user->cliente->nombre ?? '' }}" />
                         </div>
 
                         <div class="mb-5">
@@ -31,21 +31,28 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Apellido</label>
                             <input type="text" id="apellido" name="apellido"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required value="{{ $user->cliente->apellido }}" />
+                                required value="{{ $user->cliente->apellido ?? ''}}" />
+                        </div>
+                        <div class="mb-5">
+                            <label for="nit"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nit</label>
+                            <input type="text" id="nit" name="nit"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required value="{{ $user->cliente->nit ?? '' }}" />
                         </div>
                         <div class="mb-5">
                             <label for="direccion"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Dirección</label>
                             <input type="text" id="direccion" name="direccion"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required value="{{ $user->cliente->direccion }}" />
+                                required value="{{ $user->cliente->direccion ?? ''}}" />
                         </div>
                         <div class="mb-5">
                             <label for="telefono"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Teléfono</label>
                             <input type="text" id="telefono" name="telefono"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                required value="{{ $user->cliente->telefono }}" />
+                                required value="{{ $user->cliente->telefono ?? '' }}" />
                         </div>
                     </div>
 

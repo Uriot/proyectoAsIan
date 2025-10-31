@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pedido;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PedidoController extends Controller
 {
@@ -64,6 +65,19 @@ class PedidoController extends Controller
     public function destroy(Pedido $pedido)
     {
         //
+    }
+
+    public function imprimirFactura(Pedido $pedido)
+    {
+        $user = auth()->user()->cliente;
+
+        if ($pedido->cliente_id !== $user->id) {
+            abort(403, 'No tienes permiso para ver este pedido.');
+        }
+
+        $pdf = Pdf::loadView('pedidos.factura', compact('pedido'));
+        return $pdf->stream();
+        return $pdf->download('factura_pedido_' . $pedido->id . '.pdf');
     }
 
 

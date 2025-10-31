@@ -1,12 +1,15 @@
 <?php
 
 use App\Http\Controllers\PedidoController;
+use App\Http\Controllers\ProductoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\ComprasController;
 use App\Models\Producto;
+use App\Models\SubcategoriaProducto;
+use Psy\Sudo;
 
 // Página principal (welcome)
 Route::get('/', function () {
@@ -22,7 +25,20 @@ Route::middleware([
 
     // Página principal después de iniciar sesión (catálogo)
     Route::get('/dashboard', function () {
-        $productos = Producto::paginate(9);
+
+        $query = Producto::query();
+
+
+        if ($subcategoria_id = request('id')) {
+            $query->whereHas('subcategorias', function ($q) use ($subcategoria_id) {
+                $q->where('subcategorias.id', $subcategoria_id);
+            });
+        }
+        //dd( $query->toSql());
+        //dd(SubcategoriaProducto::all());
+        //dd(SubcategoriaProducto::where('subcategoria_id', request('id'))->get());
+        $productos = $query->paginate(9);
+
         return view('dashboard', compact('productos'));
     })->name('dashboard');
 
@@ -50,8 +66,13 @@ Route::middleware([
     // Rutas de mis Pedidos
     Route::get('misPedidos', [PedidoController::class, 'misPedidos'])->name('misPedidos.index');
     Route::get('misPedidos/{pedido}', [PedidoController::class, 'verMiPedido'])->name('misPedidos.view');
+    Route::get('pedidos/{pedido}/imprimirFactura', [PedidoController::class, 'imprimirFactura'])->name('pedidos.imprimirFactura');
 
-    // Rotas compras
+    // Rutas de Productos
+    Route::get('productos', [ProductoController::class, 'index'])->name('productos.index');
+    Route::get('productos/{producto}', [ProductoController::class, 'show'])->name('productos.show');
+
+    // Rutas de Compras
     Route::get('compras', [ComprasController::class, 'index'])->name('compras.index');
     Route::get('compras/create', [ComprasController::class, 'create'])->name('compras.create');
     Route::post('compras/store', [ComprasController::class, 'store'])->name('compras.store');
