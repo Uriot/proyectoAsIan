@@ -2,6 +2,7 @@
 
 namespace Laravel\Jetstream\Http\Livewire;
 
+use App\Models\Categoria;
 use Livewire\Component;
 
 class NavigationMenu extends Component
@@ -22,6 +23,8 @@ class NavigationMenu extends Component
      */
     public function render()
     {
-        return view('navigation-menu');
+        // 👇 Obtienes las categorías
+        $categorias = Categoria::all();
+        return view('navigation-menu', compact('categorias'));
     }
 }

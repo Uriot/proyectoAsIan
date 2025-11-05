@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido')->nullable();
             $table->string('direccion')->nullable();
-            $table->string('email')->default('CF');
+            $table->string('email')->nullable();
             $table->string('telefono')->nullable();
+            $table->string('nit')->default('CF');
             $table->string('creado_por')->nullable();
             $table->string('actualizado_por')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');

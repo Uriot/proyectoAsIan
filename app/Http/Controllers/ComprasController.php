@@ -19,6 +19,11 @@ class ComprasController extends Controller
      */
     public function index()
     {
+
+        if (!auth()->user()->hasRole('admin')) {
+            abort(403, 'Acceso no autorizado');
+        }
+
         $compras = Compra::paginate($this->perPage);
         $proveedores = Proveedor::all();
         $sucursales = Sucursal::all();
@@ -31,7 +36,9 @@ class ComprasController extends Controller
      */
     public function create()
     {
-
+        if (!auth()->user()->hasRole('admin')) {
+            abort(403, 'Acceso no autorizado');
+        }
         $proveedores = Proveedor::all();
         $sucursales = Sucursal::all();
         $productos = Producto::all();
@@ -44,7 +51,9 @@ class ComprasController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-
+        if (!auth()->user()->hasRole('admin')) {
+            abort(403, 'Acceso no autorizado');
+        }
         $total = $request->input('precios') ? array_sum($request->input('precios')) : 0;
 
         DB::beginTransaction();

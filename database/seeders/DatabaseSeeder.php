@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             MetodosPagosSeeder::class,
             ProductoSeeder::class,
             SucursalesSeeder::class,
+            RolesSeeder::class,
 
         ]);
 

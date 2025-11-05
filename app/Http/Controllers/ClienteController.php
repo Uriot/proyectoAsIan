@@ -35,7 +35,7 @@ class ClienteController extends Controller
     {
         $user = auth()->user();
 
-        $clienteData = $request->only(['nombre', 'apellido', 'direccion', 'email', 'telefono']);
+        $clienteData = $request->only(['nombre', 'apellido', 'nit', 'direccion', 'email', 'telefono']);
         $clienteData['user_id'] = $user->id;
         $clienteData['creado_por'] = $user->email;
         $clienteData['actualizado_por'] = $user->email;
