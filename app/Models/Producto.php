@@ -52,6 +52,16 @@ class Producto extends Model
         return $this->hasMany(DetallePedido::class, 'id_producto');
     }
 
+    public function detallesCompras()
+    {
+        return $this->hasMany(DetalleCompra::class, 'producto_id');
+    }
+
+    public function inventarios()
+    {
+        return $this->hasMany(Inventario::class, 'producto_id');
+    }
+
     /**
      * Ejemplo de relaciones posibles.
      */
